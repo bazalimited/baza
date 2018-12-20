@@ -14,6 +14,17 @@ class Employee extends Person {
         return ($query->num_rows() == 1);
     }
 
+    function is_a_registered_user($phone_number) {
+        $this->db->from('employees');
+        $this->db->where('employees.username', $phone_number);
+        $this->db->where('employees.is_employee', 0);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return true;
+        }
+        return false;
+    }
+
     function employee_username_exists($username) {
         $this->db->from('employees');
         $this->db->join('people', 'people.person_id = employees.person_id');
