@@ -446,4 +446,5 @@ $lang['common_selected_items'] = 'Ibikoresho wahisemo ugiye kwishyurira';
 $lang['common_selected_items_confirmation'] = 'Kwemeza kwishyurira Ibikoresho wahisemo';
 $lang['common_selected_items_final_confirmation_momo'] = 'Ugiye kwishyura ukoresheje uburyo bwa Telefone igendanwa(MTN, Airtel and Tigo)';
 $lang['common_found_item_contact_person'] = 'Telefone n\'umuntu wagufasha';
+$lang['common_new_found_item'] = 'Icyabonetse gishya';
 ?>

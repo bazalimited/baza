@@ -20,7 +20,7 @@ $lang['employees_phone_exists']='The phone already exists';
 $lang['employees_password_required']='Password is required';
 
 
-$lang['employees_basic_information']='Agent Basic Information';
+$lang['employees_basic_information']='Basic Information';
 
 $lang['employees_permission_info']='Agent Permissions and Access';
 $lang['employees_permission_desc']='Check the boxes below to grant access to modules';

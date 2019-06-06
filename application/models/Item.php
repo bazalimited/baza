@@ -1827,6 +1827,34 @@ class Item extends CI_Model {
         return $this->db->get();
     }
 
+    function public_ussd_search_items($search) {
+        $this->db->select('items.*,categories.name as category');
+        $this->db->from('items');
+        $this->db->join('categories', 'categories.id = items.category_id', 'left');
+        $this->db->where('(' . $this->db->dbprefix('items') . ".name = '" . $search . "' or " . $this->db->dbprefix('items') . ".item_number = '" . $search . "') and " . $this->db->dbprefix('items') . ".deleted=0");
+        $this->db->where('items.owner_payment_id is null');
+        $this->db->where('items.status = 0'); //Not Collected
+
+        return $this->db->get();
+    }
+
+    function public_ussd_search_items_count_all($search) {
+        $this->db->select('items.*,categories.name as category');
+        $this->db->from('items');
+        $this->db->join('categories', 'categories.id = items.category_id', 'left');
+        $this->db->where('(' . $this->db->dbprefix('items') . ".name = '" . $search . "' or " . $this->db->dbprefix('items') . ".item_number = '" . $search . "') and " . $this->db->dbprefix('items') . ".deleted=0");
+        $this->db->where('items.owner_payment_id is null');
+        $this->db->where('items.status = 0'); //Not Collected
+
+        $result = $this->db->get();
+
+        if (is_object($result)) {
+            return $result->num_rows();
+        } else {
+            return 0;
+        }
+    }
+
     function public_search_items_count_all($search) {
         $this->db->select('items.*,categories.name as category');
         $this->db->from('items');
@@ -2335,7 +2363,7 @@ class Item extends CI_Model {
     function get_found_item_status($item_id) {
         $item_payment = $this->Payment->get_payment_by_item_id($item_id, 1); // 1 for found items
         $item = $this->Item->get_info($item_id); // 1 for found items
-        
+
         if (!isset($item_payment)) {
             return ITEM_STATUS_PAYMENT_NOT_REQUESTED;
         } else {

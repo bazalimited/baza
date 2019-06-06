@@ -177,15 +177,13 @@ if (!$this->Appconfig->get_raw_phppos_session_expiration()) {
             if ($this->Employee->is_logged_in()) {
                 ?>
                 <ul class="list-unstyled menu-parent" id="mainMenu">
-
-
                     <li  <?php echo $this->uri->segment(1) == 'home' ? 'class="active"' : ''; ?>>
                         <a tabindex = "-1" href="<?php echo site_url('home'); ?>" class="waves-effect waves-light">
                             <i class="icon ti-dashboard"></i>
                             <span class="text"><?php echo lang('common_dashboard'); ?></span>
                         </a>
                     </li>
-                    <li  <?php echo ($this->uri->segment(1) == 'personal' && $this->uri->segment(2) != 'pending' && $this->uri->segment(2) != 'found' && $this->uri->segment(2) != 'registered' && $this->uri->segment(2) != 'messages') ? 'class="active"' : ''; ?>>
+                    <li  <?php echo ($this->uri->segment(1) == 'personal' && $this->uri->segment(2) != 'pending' && $this->uri->segment(2) != 'found' && $this->uri->segment(2) != 'registered' && $this->uri->segment(2) != 'messages' && $this->uri->segment(2) != 'found_unpaid') ? 'class="active"' : ''; ?>>
                         <a tabindex = "-1" href="<?php echo site_url('personal/items'); ?>" class="waves-effect waves-light">
                             <i class="icon ti-harddrive"></i>
                             <span class="text">All Items(<?php echo $user_items_count; ?>)</span>
@@ -194,19 +192,25 @@ if (!$this->Appconfig->get_raw_phppos_session_expiration()) {
                     <li  <?php echo $this->uri->segment(2) == 'pending' ? 'class="active"' : ''; ?>>
                         <a tabindex = "-1" href="<?php echo site_url('personal/pending'); ?>" class="waves-effect waves-light">
                             <i class="icon ti-harddrive"></i>
-                            <span class="text">Pending payment</span>
+                            <span class="text">Pending payment(<?php echo $pending_items_count; ?>)</span>
                         </a>
                     </li>
                     <li  <?php echo $this->uri->segment(2) == 'registered' ? 'class="active"' : ''; ?>>
                         <a tabindex = "-1" href="<?php echo site_url('personal/registered'); ?>" class="waves-effect waves-light">
                             <i class="icon ti-harddrive"></i>
-                            <span class="text">Registered items</span>
+                            <span class="text">Registered items(<?php echo $registered_items_count; ?>)</span>
                         </a>
                     </li>
                     <li  <?php echo $this->uri->segment(2) == 'found' ? 'class="active"' : ''; ?>>
                         <a tabindex = "-1" href="<?php echo site_url('personal/found'); ?>" class="waves-effect waves-light">
                             <i class="icon ti-harddrive"></i>
-                            <span class="text">My found items(<?php echo $total_found_items; ?>)</span>
+                            <span class="text">My found items(<?php echo $found_count; ?>)</span>
+                        </a>
+                    </li>
+                    <li  <?php echo $this->uri->segment(2) == 'found_unpaid' ? 'class="active"' : ''; ?>>
+                        <a tabindex = "-1" href="<?php echo site_url('personal/found_unpaid'); ?>" class="waves-effect waves-light">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="text">Pending peyment(<?php echo $total_registered_found_unpaid_items; ?>)</span>
                         </a>
                     </li>
                     <li  <?php echo $this->uri->segment(2) == 'messages' ? 'class="active"' : ''; ?>>

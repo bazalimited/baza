@@ -64,6 +64,23 @@
 
         }
     }
+    function search_found() {
+        var searc_text = $('#search_text').val();
+        if (searc_text === "") {
+            alert('Shyiramo icyo ushakisha');
+        } else {
+            window.location.href = "<?php echo site_url('welcome/search'); ?>" + "/" + searc_text + "/found";
+        }
+
+    }
+    function search_registered() {
+        var searc_text = $('#search_text').val();
+        if (searc_text === "") {
+            alert('Shyiramo icyo ushakisha');
+        } else {
+            window.location.href = "<?php echo site_url('welcome/search'); ?>" + "/" + searc_text + "/registered";
+        }
+    }
 </script>
 </body>
 

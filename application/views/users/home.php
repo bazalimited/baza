@@ -36,7 +36,7 @@ $this->load->helper('demo');
             <a href="<?php echo site_url('personal/found'); ?>">
                 <div class="dashboard-stats" id="totalCustomers">
                     <div class="left">
-                        <h3 class="flatGreenc"><?php echo $found_count; ?></h3>
+                        <h3 class="flatGreenc"><?php echo $total_found_items; ?></h3>
                         <h4 style="margin-right: 100px;"><?php echo lang('common_total') . " Found items"; ?></h4>
                     </div>
                     <div class="right flatRed">

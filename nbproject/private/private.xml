@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/E:/xampp/htdocs/baza/application/controllers/Home.php</file>
+            <file>file:/E:/xampp/htdocs/baza/application/views/personal/found_unpaid.php</file>
+            <file>file:/E:/xampp/htdocs/baza/application/views/partial_public/header.php</file>
+            <file>file:/E:/xampp/htdocs/baza/application/controllers/Secure_area.php</file>
+            <file>file:/E:/xampp/htdocs/baza/application/views/personal/pending.php</file>
+            <file>file:/E:/xampp/htdocs/baza/application/controllers/Personal.php</file>
+            <file>file:/E:/xampp/htdocs/baza/application/config/constants.php</file>
+            <file>file:/E:/xampp/htdocs/baza/application/views/personal/found_item_payment.php</file>
+            <file>file:/E:/xampp/htdocs/baza/application/models/Personal_item.php</file>
+            <file>file:/E:/xampp/htdocs/baza/application/helpers/table_helper.php</file>
+            <file>file:/E:/xampp/htdocs/baza/application/controllers/Payments.php</file>
+            <file>file:/E:/xampp/htdocs/baza/application/views/items/form.php</file>
+            <file>file:/E:/xampp/htdocs/baza/application/views/personal/found.php</file>
+        </group>
+    </open-files>
+</project-private>

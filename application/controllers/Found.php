@@ -81,7 +81,7 @@ class Found extends Secure_area {
             $payment = $this->Payment->get_info($payment_id);
             //request the Cash peyment
             if ($this->Payment->request_mobile_payment_approval($amount, $phone_number, 'Item_registration', $payment->transaction_id)) {
-                $message = '<div class="alert alert-success"><strong>Payment successfully requested. Please confirm the payment from your Phone</strong></div>';
+                $message = '<div class="alert alert-success"><strong>Payment successfully requested. Please confirm the payment from your Phone</strong> and then check your item(s) under <strong>Registered items</strong> Menu</strong></div>';
             } else {
                 $message = '<div class="alert alert-danger"><strong>Payment request failed. Make sure that you have enough fund on your account and try again</strong></div>';
             }

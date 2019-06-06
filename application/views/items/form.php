@@ -66,20 +66,61 @@
                     </div>
                 </div>
                 <div id="sn_label">
-
-                    <div class="form-group">
-                        <div><?php echo form_label(lang('common_item_name_on_card') . ' :', 'name_on_card', array('class' => 'col-sm-3 col-md-3 col-lg-2 control-label wide')); ?></div>
-                        <div class="col-sm-9 col-md-9 col-lg-10">
-                            <?php
-                            echo form_input(array(
-                                'name' => 'name_on_card',
-                                'id' => 'name_on_card',
-                                'class' => 'form-control form-inps',
-                                'value' => $item_info->name_on_card)
-                            );
-                            ?>
+                    <?php
+                    if (!$edit_mode) {
+                        ?>
+                        <div class="form-group">
+                            <div><?php echo form_label(lang('common_item_number_expanded') . ' :', 'item_number', array('class' => 'col-sm-3 col-md-3 col-lg-2 control-label wide')); ?></div>
+                            <div class="col-sm-9 col-md-9 col-lg-10">
+                                <?php
+                                echo form_input(array(
+                                    'name' => 'item_number',
+                                    'id' => 'item_number',
+                                    'class' => 'form-control form-inps',
+                                    'value' => $item_info->item_number)
+                                );
+                                ?>
+                            </div>
                         </div>
-                    </div>
+
+                        <?php
+                    } else {
+                        if ($sn_type == 1) {
+                            ?>
+                            <div class="form-group">
+                                <div><?php echo form_label(lang('common_item_number_expanded') . ' :', 'item_number', array('class' => 'col-sm-3 col-md-3 col-lg-2 control-label wide')); ?></div>
+                                <div class="col-sm-9 col-md-9 col-lg-10">
+                                    <?php
+                                    echo form_input(array(
+                                        'name' => 'item_number',
+                                        'id' => 'item_number',
+                                        'class' => 'form-control form-inps',
+                                        'value' => $item_info->item_number)
+                                    );
+                                    ?>
+                                </div>
+                            </div>
+                            <?php
+                        } else {
+                            ?>
+                            <div class="form-group">
+                                <div><?php echo form_label(lang('common_item_name_on_card') . ' :', 'name_on_card', array('class' => 'col-sm-3 col-md-3 col-lg-2 control-label wide')); ?></div>
+                                <div class="col-sm-9 col-md-9 col-lg-10">
+                                    <?php
+                                    echo form_input(array(
+                                        'name' => 'name_on_card',
+                                        'id' => 'name_on_card',
+                                        'class' => 'form-control form-inps',
+                                        'value' => $item_info->name_on_card)
+                                    );
+                                    ?>
+                                </div>
+                            </div>
+                            <?php
+                        }
+                    }
+                    ?>
+
                 </div>
                 <div style="text-align: center;">
                     <?php echo img(array('src' => base_url() . 'assets/img/loading.gif', 'class' => '', 'alt' => 'Loading', 'width' => '32', 'height' => '32', 'style' => 'display: none;', 'id' => 'img_loading')) ?>
@@ -1683,67 +1724,66 @@
     var submitting = false;
     function doItemSubmit(form)
     {
-        server_status = '';
+    server_status = '';
     if (submitting) return;
     submitting = true;
     $('#grid-loader').show();
     $(form).ajaxSubmit({
-        async: false,
-    success:function(response)
-    {
-        server_status = response.success;
-    $('#grid-loader').hide();
-    submitting = false;
-    show_feedback(response.success ? 'success' : 'error', response.message, response.success ? <?php echo json_encode(lang('common_success')); ?> + ' #' + response.item_id  : <?php echo json_encode(lang('common_error')); ?>);
-        
-    if (response.redirect == 1 && response.success)
-    {
-    if (response.sale_or_receiving == 'sale')
-    {
-    $.post('<?php echo site_url("sales/add"); ?>', {item: response.item_id}, function()
-    {
-    window.location.href = '<?php echo site_url('sales/index/1'); ?>';
-    });
-    }
-    else
-    {
-    $.post('<?php echo site_url("receivings/add"); ?>', {item: response.item_id}, function()
-    {
-    window.location.href = '<?php echo site_url('receivings'); ?>';
-    });
-    }
-    }
-    else if (response.redirect == 2 && response.success)
-    {
-    window.location.href = '<?php echo site_url('items'); ?>';
-    }
-    else
-    {
-    $("html, body").animate({ scrollTop: 0 }, "slow");
-    }
+    async: false,
+            success:function(response)
+            {
+            server_status = response.success;
+            $('#grid-loader').hide();
+            submitting = false;
+            show_feedback(response.success ? 'success' : 'error', response.message, response.success ? <?php echo json_encode(lang('common_success')); ?> + ' #' + response.item_id  : <?php echo json_encode(lang('common_error')); ?>);
+            if (response.redirect == 1 && response.success)
+            {
+            if (response.sale_or_receiving == 'sale')
+            {
+            $.post('<?php echo site_url("sales/add"); ?>', {item: response.item_id}, function()
+            {
+            window.location.href = '<?php echo site_url('sales/index/1'); ?>';
+            });
+            }
+            else
+            {
+            $.post('<?php echo site_url("receivings/add"); ?>', {item: response.item_id}, function()
+            {
+            window.location.href = '<?php echo site_url('receivings'); ?>';
+            });
+            }
+            }
+            else if (response.redirect == 2 && response.success)
+            {
+            window.location.href = '<?php echo site_url('items'); ?>';
+            }
+            else
+            {
+            $("html, body").animate({ scrollTop: 0 }, "slow");
+            }
 
 
 <?php if (!$item_info->item_id) { ?>
-        //If we have a new item, make sure we hide the tax containers to "reset"
-        $(".tax-container").addClass('hidden');
-        $(".item-location-price-container").addClass('hidden');
-        $('.commission-container').addClass('hidden');
-        //Make the quantity inputs show up again in case they were hidden
-        $(".quantity-input").removeClass('hidden');
-        $(".reorder-input").removeClass('hidden');
-        var selectize = $("#tags")[0].selectize;
-        selectize.clear();
-        selectize.clearOptions();
+                //If we have a new item, make sure we hide the tax containers to "reset"
+                $(".tax-container").addClass('hidden');
+                $(".item-location-price-container").addClass('hidden');
+                $('.commission-container').addClass('hidden');
+                //Make the quantity inputs show up again in case they were hidden
+                $(".quantity-input").removeClass('hidden');
+                $(".reorder-input").removeClass('hidden');
+                var selectize = $("#tags")[0].selectize;
+                selectize.clear();
+                selectize.clearOptions();
 <?php } ?>
-    },
+            },
 <?php if (!$item_info->item_id) { ?>
         resetForm: true,
 <?php } ?>
     dataType:'json'
     });
-    if(server_status){
-        window.location.href = '<?php echo site_url('items'); ?>';
-        }
+    if (server_status){
+    window.location.href = '<?php echo site_url('items'); ?>';
+    }
     }
 
     function cancelItemAddingFromSaleOrRecv()

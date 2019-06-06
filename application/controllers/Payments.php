@@ -99,7 +99,7 @@ class Payments extends Secure_area implements Idata_controller {
         $config['total_rows'] = $this->Item->count_all_uncollected_by_user($employee_id, $current_location_id);
         $table_data = $this->Item->get_all_uncollected_by_user($employee_id, $current_location_id, $data['per_page'], $params['offset'], $params['order_col'], $params['order_dir']);
 
-        $data['total_rows'] = $config['total_rows'];
+$data['total_rows'] = $config['total_rows'];
 
 
         $this->load->library('pagination');

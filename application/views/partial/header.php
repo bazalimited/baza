@@ -184,7 +184,7 @@ if (!$this->Appconfig->get_raw_phppos_session_expiration()) {
                         ?>>
                             <a tabindex = "-1" href="<?php echo site_url("items/view/-1"); ?>"  class="waves-effect waves-light">
                                 <i class="icon ti-<?php echo $module->icon; ?>"></i>
-                                <span class="text"><?php echo lang('items_new') ?></span>
+                                <span class="text"><?php echo lang('common_new_found_item') ?></span>
                             </a>
                         </li>
                         <li <?php

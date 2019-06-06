@@ -42,16 +42,13 @@
                     <div class="col-xl-9 mx-auto">
                         <h1 class="mb-5">Baza! Umutekano w'ibyawe ni zo nyungu zacu!</h1>
                     </div>
-                    <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                    <div class="col-md-12 col-lg-12 col-xl-12 mx-auto" style="text-align: center;">
 
-                        <div class="form-row">
+                        <div>
                             <div >
                                 <input type="text" class="form-control-lg required" autocomplete="off" id="search_text" name="search" placeholder="Enter SN, Item Label ...">
-                                <select class="form-control-lg required" id="search_option">
-                                    <option value="registered">Registered</option>
-                                    <option value="found">Found Items</option>
-                                </select>
-                                <button type="submit" class="form-control-lg btn btn-primary" style="padding: .5rem 1rem; font-size: 1.25rem;" onclick="validate_search();">Shakisha ...</button>
+                                <button type="submit" class="form-control-lg btn btn-primary" style="padding: .5rem 1rem; font-size: 1.25rem;" onclick="search_registered();">Shakisha icyandikishijwe</button>
+                                <button type="submit" class="form-control-lg btn btn-primary" style="padding: .5rem 1rem; font-size: 1.25rem;" onclick="search_found();">Shakisha icyatakaye</button>
                             </div>
                         </div> 
                     </div>

@@ -279,6 +279,12 @@ class Employee extends Person {
         return $success;
     }
 
+    function get_last_inserted() {
+        $this->db->select_max('person_id');
+        $result = $this->db->get('people')->row_array();
+        return $result['person_id'];
+    }
+
     function set_language($language_id, $employee_id) {
 
         $this->db->where('person_id', $employee_id);

@@ -101,6 +101,8 @@ define('REJECTED_BY_THE_PAYER', 103);
 define('NO_PAYMENT_REQUEST_DONE', 0);
 define('PAYMENT_CONFIRMATION_TIMEOUT_TIME_MINITUTES', 10);
 
+define('REGISTERED_ITEM_RECOVERY_PAYMENT_AMOUNT', 500);
+
 define('ITEM_STATUS_PAYMENT_NOT_REQUESTED', 'No item claiming request made');
 define('ITEM_STATUS_PAYMENT_PENDIND', 'Item claiming payment pending');
 define('ITEM_STATUS_PAYMENT_CONFIRMED_PENDING_DELIVERY', 'Item claiming payment confirmed, Waiting for collection from the agent');

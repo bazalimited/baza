@@ -89,6 +89,7 @@
                             'class' => 'form-control',
                             'name' => 'phone_number',
                             'id' => 'phone_number',
+                            'placeholder' => 'eg: 250788000000',
                             'value' => $person_info->phone_number));
                         ?>
                     </div>

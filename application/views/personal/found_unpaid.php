@@ -8,7 +8,7 @@
             <div class="panel panel-piluku">
                 <div class="panel-heading">
                     <h3 class="panel-title">
-                        <?php echo ' My found Items(' . $total_found_items . ')'; ?>
+                        <?php echo ' My found unpaid Items(' . $total_registered_found_unpaid_items . ')'; ?>
                         <div class="panel-options custom">
                             <?php if ($pagination) { ?>
                                 <div class="pagination pagination-top hidden-print  text-center" id="pagination_top">
@@ -19,7 +19,7 @@
                     </h3>
                 </div>
                 <div class="panel-body nopadding table_holder table-responsive" >
-                    <?php if (count($registered_found_items) > 0) { ?>
+                    <?php if (count($registered_found_unpaid_items) > 0) { ?>
                         <table class="table tablesorter table-hover" id="sortable_table">
                             <thead>
                                 <tr>
@@ -35,7 +35,7 @@
                             <tbody>
                                 <?php
                                 $counter = 1;
-                                foreach ($registered_found_items->result() as $item) {
+                                foreach ($registered_found_unpaid_items->result() as $item) {
                                     $avatar_url = $item->image_id ? site_url('app_files/view/' . $item->image_id) : base_url('assets/assets/images/avatar-default.jpg');
                                     $item_status = $this->Item->get_found_item_status($item->item_id);
                                     ?>

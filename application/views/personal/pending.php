@@ -38,7 +38,7 @@
                         <table class="table tablesorter table-hover" id="sortable_table">
                             <thead>
                                 <tr>
-                                    <th class="leftmost">&nbsp;</th>
+                                    <th><input type="checkbox" id="check_all" style="display: block; margin-bottom: 13px;"></th>
                                     <th class="leftmost">No</th>
                                     <th>Item Category</th>
                                     <th>Item Name</th>
@@ -110,5 +110,8 @@
             }
             return false;
         }
+        $("#check_all").click(function () {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
     </script>
     <?php $this->load->view("partial_public/footer"); ?>

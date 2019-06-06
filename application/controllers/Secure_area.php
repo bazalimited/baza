@@ -36,12 +36,16 @@ class Secure_area extends MY_Controller {
         } else {
             $data['user_items_count'] = $this->Personal_item->count_all_by_user($this->Employee->get_logged_in_employee_info()->id);
         }
+
+        $data['total_found_items'] = $this->Personal_item->count_found_by_user($this->Employee->get_logged_in_employee_info()->id);
+
+        $data['user_items_count'] = $this->Personal_item->count_all_by_user($this->Employee->get_logged_in_employee_info()->id);
+        $data['pending_payement_user_items_count'] = $this->Personal_item->count_unpaid_by_user($this->Employee->get_logged_in_employee_info()->id);
+        $data['found_user_items_count'] = $this->Personal_item->count_found_by_user($this->Employee->get_logged_in_employee_info()->id);
+        $data['found_count'] = $this->Personal_item->count_registered_found_by_user($this->Employee->get_logged_in_employee_info()->id);
         $data['pending_items_count'] = $this->Personal_item->count_unpaid_by_user($this->Employee->get_logged_in_employee_info()->id);
         $data['registered_items_count'] = $this->Personal_item->count_paid_by_user($this->Employee->get_logged_in_employee_info()->id);
-        $registered_found_count = $this->Personal_item->count_registered_found_by_user($this->Employee->get_logged_in_employee_info()->id);
-        $found_count = $this->Personal_item->count_found_by_user($this->Employee->get_logged_in_employee_info()->id);
-
-        $data['total_found_items'] = intval($found_count) + intval($registered_found_count);
+        $data['total_registered_found_unpaid_items'] = $this->Personal_item->count_registered_found_unpaid_by_user($this->Employee->get_logged_in_employee_info()->id);
 
         $locations_list = $this->Location->get_all();
 

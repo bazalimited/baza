@@ -488,17 +488,29 @@ class Items extends Secure_area implements Idata_controller {
         $this->check_action_permission('add_update');
         $this->load->helper('report');
         $current_location_id = $this->Employee->get_logged_in_employee_current_location_id();
+        $edit_mode = false;
         if ($item_id == -1) {
             $selected_item_location = $this->Employee->get_logged_in_employee_current_location_id();
         } else {
             $selected_item = $this->Item->get_info($item_id);
             $selected_item_location = $selected_item->location_id;
+            $sn_type = 0;
+            $edit_mode = true;
+            $selected_category = $this->Category->get_info($selected_item->category_id);
+
+            if ($selected_category->record_sn == 1) {
+                $sn_type = 1;
+            } else {
+                $sn_type = 2;
+            }
         }
         $data = $this->_get_item_data($item_id);
         $data['user_locations'] = $this->Employee->get_employee_locations();
         $data['selected_item_location'] = $selected_item_location;
         $data['redirect'] = $redirect;
         $data['sale_or_receiving'] = $sale_or_receiving;
+        $data['sn_type'] = $sn_type;
+        $data['edit_mode'] = $edit_mode;
 
         $this->load->view("items/form", $data);
     }

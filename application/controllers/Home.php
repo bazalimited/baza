@@ -50,7 +50,7 @@ class Home extends Secure_area {
             $data['user_items_count'] = $this->Personal_item->count_all_by_user($this->Employee->get_logged_in_employee_info()->id);
             $data['pending_payement_user_items_count'] = $this->Personal_item->count_unpaid_by_user($this->Employee->get_logged_in_employee_info()->id);
             $data['found_user_items_count'] = $this->Personal_item->count_found_by_user($this->Employee->get_logged_in_employee_info()->id);
-            $data['found_count'] = $this->Personal_item->count_found_by_user($this->Employee->get_logged_in_employee_info()->id);
+            $data['found_count'] = $this->Personal_item->count_registered_found_by_user($this->Employee->get_logged_in_employee_info()->id);
             $data['pending_items_count'] = $this->Personal_item->count_unpaid_by_user($this->Employee->get_logged_in_employee_info()->id);
             $data['registered_items_count'] = $this->Personal_item->count_paid_by_user($this->Employee->get_logged_in_employee_info()->id);
             $this->load->view("users/home", $data);

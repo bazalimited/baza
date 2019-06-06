@@ -448,5 +448,6 @@ $lang['common_selected_items'] = 'Selected items for payment';
 $lang['common_selected_items_confirmation'] = 'Selected items for payment confirmation';
 $lang['common_selected_items_final_confirmation_momo'] = 'You are about to pay with Mobile Money(MTN, Airtel and Tigo)';
 $lang['common_found_item_contact_person'] = 'Phone and Contact Person';
+$lang['common_new_found_item'] = 'New found item';
 
 ?>

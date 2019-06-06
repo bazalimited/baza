@@ -199,8 +199,8 @@ if ($has_cost_price_permission) {
 
                         <?php
                         echo
-                        anchor("$controller_name/view/-1/", '<span class="">' . lang($controller_name . '_new') . '</span>', array('class' => 'btn btn-primary btn-lg',
-                            'title' => lang($controller_name . '_new')));
+                        anchor("$controller_name/view/-1/", '<span class="">' . lang('common_new_found_item') . '</span>', array('class' => 'btn btn-primary btn-lg',
+                            'title' => lang('common_new_found_item')));
                         ?>
 
                     <?php } ?>

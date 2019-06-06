@@ -2,7 +2,18 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="modal-content">
-
+            <?php
+            if ($is_item_owner) {
+                ?>
+                <div class="panel-heading" style="background-color: orange;">
+                    <h3 class="panel-title" style="color: #FFFFFF !important;">
+                        <i></i> 
+                        You are about to recover your lost item
+                    </h3>
+                </div>
+                <?php
+            }
+            ?>
             <div class="modal-header">
                 <h4 class="modal-title" style="float: left;"><?php echo lang("items_basic_information"); ?></h4>
             </div>
@@ -59,7 +70,7 @@
                         $agent = $this->Employee->get_info($item_info->created_by_id);
                         ?>
                         <tr> <td><h4><?php echo lang('common_found_item_location'); ?></h4></td> <td> <h4><?php echo H($this->Location->get_info($item_info->item_location_id)->name); ?></h4></td></tr>
-                        <tr> <td><h4><?php echo lang('common_found_item_contact_person'); ?></h4></td> <td> <h4><?php echo $agent->first_name.' '.$agent->last_name.'<br />Phone: '.$agent->phone_number; ?></h4></td></tr>
+                        <tr> <td><h4><?php echo lang('common_found_item_contact_person'); ?></h4></td> <td> <h4><?php echo $agent->first_name . ' ' . $agent->last_name . '<br />Phone: ' . $agent->phone_number; ?></h4></td></tr>
                         <tr> <td colspan="2"><center><a href="<?php echo site_url('personal/found_invoice/' . $item_info->item_id); ?>" target="_blank"><input name="submitf" value="Print receipt..." class="submit_button btn btn-primary" type="submit"></a></center></td></tr>
                     <?php }
                     ?>
@@ -108,16 +119,35 @@
                             <img src="<?php echo base_url(); ?>assets/img/momo.jpg" width="100" height="50" />
                         </span>
                     </center>
-                    <table class="table table-bordered table-hover table-striped">
+                    <?php
+                    if ($is_item_owner) {
+                        ?>
+                        <table class="table table-bordered table-hover table-striped">
 
-                        <tr> <td style="width: 20%;"><h4>Total Amount</h4></td> <td> <h4><?php echo number_format($category_amount, 0); ?> FRW</h4></td></tr>
-                        <tr> <td style="width: 20%;"><h4>Phone Number</h4></td> <td> <h4><?php echo $phone_number; ?> </h4></td></tr>
-                    </table> 
+                            <tr> <td style="width: 20%;"><h4>Total Amount</h4></td> <td> <h4><?php echo number_format(REGISTERED_ITEM_RECOVERY_PAYMENT_AMOUNT, 0); ?> FRW</h4></td></tr>
+                            <tr> <td style="width: 20%;"><h4>Phone Number</h4></td> 
+                                <td> <h4><?php echo $phone_number; ?> </h4>
+                                    <input type="hidden" name="amount" value="<?php echo REGISTERED_ITEM_RECOVERY_PAYMENT_AMOUNT; ?>" />
+                                </td></tr>
+                        </table> 
+                        <?php
+                    } else {
+                        ?>
+                        <table class="table table-bordered table-hover table-striped">
+
+                            <tr> <td style="width: 20%;"><h4>Total Amount</h4></td> <td> 
+                                    <h4><?php echo number_format($category_amount, 0); ?> FRW</h4>
+                                    <input type="hidden" name="amount" value="<?php echo $category_amount; ?>" />
+                                </td></tr>
+                            <tr> <td style="width: 20%;"><h4>Phone Number</h4></td> <td> <h4><?php echo $phone_number; ?> </h4></td></tr>
+                        </table> 
+                        <?php
+                    }
+                    ?>
                     <?php
                     echo form_open_multipart('personal/found_payment_confirmation/', array('id' => 'payment_form'));
                     ?>
                     <input type="hidden" name="phone_number" value="<?php echo $phone_number; ?>" />
-                    <input type="hidden" name="amount" value="<?php echo $category_amount; ?>" />
                     <input type="hidden" name="item_id" value="<?php echo $item_info->item_id; ?>" />
                     <input name="submitf" value="Confirm payment..." id="submitf" class="submit_button btn btn-primary" type="submit" onclick="return confirm_Payment();">
                     <?php echo form_close(); ?>
@@ -141,4 +171,5 @@
         }
         return false;
     }
+
 </script>

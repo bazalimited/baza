@@ -54,13 +54,19 @@ class Personal extends Secure_area {
 
     function found() {
         $data['registered_found_items'] = $this->Personal_item->get_registered_found_by_user($this->Employee->get_logged_in_employee_info()->id);
-        $data['found_items'] = $this->Personal_item->get_found_by_user($this->Employee->get_logged_in_employee_info()->id);
+
         $registered_found_count = $this->Personal_item->count_registered_found_by_user($this->Employee->get_logged_in_employee_info()->id);
         $found_count = $this->Personal_item->count_found_by_user($this->Employee->get_logged_in_employee_info()->id);
 
-        $data['total_found_items'] = intval($found_count) + intval($registered_found_count);
+        $data['total_found_items'] = $this->Personal_item->count_registered_found_by_user($this->Employee->get_logged_in_employee_info()->id);
 
         $this->load->view('personal/found', $data);
+    }
+
+    function found_unpaid() {
+        $data['registered_found_unpaid_items'] = $this->Personal_item->get_registered_found_unpaid_by_user($this->Employee->get_logged_in_employee_info()->id);
+        $data['total_registered_found_unpaid_items'] = $this->Personal_item->count_registered_found_unpaid_by_user($this->Employee->get_logged_in_employee_info()->id);
+        $this->load->view('personal/found_unpaid', $data);
     }
 
     function recover($item_id) {
@@ -216,7 +222,7 @@ class Personal extends Secure_area {
                         if ($request == 0) {
                             $message = '<div class="alert alert-danger" style="font-size: 20px;"><strong>Failed to communicate with the payment gateway</strong></div>';
                         } else if ($request) {
-                            $message = '<div class="alert alert-success" style="color: red; font-size: 20px;"><strong>Payment successfully requested. Please confirm the payment from your Phone</strong></div>';
+                            $message = '<div class="alert alert-success" style="color: red; font-size: 20px;"><strong>Payment successfully requested. Please confirm the payment from your Phone and then check your item(s) under <strong>Registered items</strong> Menu</strong></div>';
                         } else {
                             $message = '<div class="alert alert-danger" style="font-size: 20px;"><strong>Payment request failed. Check your number, Make sure that you have enough fund on your account and try again</strong></div>';
                         }
@@ -2013,12 +2019,12 @@ class Personal extends Secure_area {
         $this->lang->load('items');
         $this->load->model('Category');
         $data['item_info'] = $this->Item->get_info($item_id);
-
-
         $data['category'] = $this->Category->get_info($data['item_info']->category_id)->name;
         $data['category_amount'] = $this->Category->get_info($data['item_info']->category_id)->owner_payment_amount;
         $data['phone_number'] = $this->Person->get_info($this->Employee->get_logged_in_employee_info()->person_id)->phone_number;
 
+        $data['is_item_owner'] = $this->Personal_item->is_owner_claiming($this->Employee->get_logged_in_employee_info()->id, $item_id);
+       
         $this->session->unset_userdata('redirected'); //Clear the previous redirection
         $this->load->view("personal/found_item_payment", $data);
     }

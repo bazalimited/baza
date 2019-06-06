@@ -120,7 +120,7 @@ class Personal_item extends CI_Model {
 
         return $this->db->get();
     }
-    
+
     function get_items_by_ids($ids) {
         $this->db->select('personal_items.*, categories.name as category,
 		categories.id as category_id');
@@ -128,7 +128,7 @@ class Personal_item extends CI_Model {
         $this->db->from('personal_items');
         $this->db->join('categories', 'categories.id = personal_items.category_id', 'left');
         $this->db->where('personal_items.deleted', 0);
-        $this->db->where('personal_items.item_id in ('. implode(',', $ids).')');
+        $this->db->where('personal_items.item_id in (' . implode(',', $ids) . ')');
 
         return $this->db->get();
     }
@@ -267,25 +267,9 @@ class Personal_item extends CI_Model {
         return $this->db->get();
     }
 
-    function get_found_by_user($user_id, $limit = 10000, $offset = 0) {
-
-        $this->db->select('items.*, payments.payment_gatway_code, categories.name as category, categories.id as category_id');
-        $this->db->from('items');
-        $this->db->join('payments', 'payments.item_id = items.item_id', 'left');
-        $this->db->join('categories', 'categories.id = items.category_id', 'left');
-        $this->db->where('items.deleted', 0);
-        $this->db->where('payments.deleted', 0);
-        $this->db->where('payments.item_type', 1); //found item
-        $this->db->where('payments.payed_by_id', $user_id);
-        $this->db->limit($limit);
-        $this->db->offset($offset);
-
-        return $this->db->get();
-    }
-
     function count_registered_found_by_user($user_id, $limit = 10000, $offset = 0) {
 
-         $this->db->select('items.*, categories.name as category, categories.id as category_id');
+        $this->db->select('items.*, categories.name as category, categories.id as category_id');
         $this->db->from('personal_items');
         $this->db->join('items', 'items.item_number = personal_items.item_number', 'left');
         $this->db->join('categories', 'categories.id = items.item_id', 'left');
@@ -302,6 +286,87 @@ class Personal_item extends CI_Model {
         } else {
             return 0;
         }
+    }
+
+    function get_registered_found_unpaid_by_user($user_id, $limit = 10000, $offset = 0) {
+
+        $this->db->select('items.*, categories.name as category, categories.id as category_id');
+        $this->db->from('personal_items');
+        $this->db->join('items', 'items.item_number = personal_items.item_number', 'left');
+        $this->db->join('categories', 'categories.id = items.category_id', 'left');
+        $this->db->where('items.deleted', 0);
+        $this->db->where('personal_items.deleted', 0);
+        $this->db->where('personal_items.created_by_id', $user_id);
+        $this->db->where('items.status', 0);
+        $this->db->where('items.owner_payment_id is null');
+        $this->db->limit($limit);
+        $this->db->offset($offset);
+
+        return $this->db->get();
+    }
+
+    function count_registered_found_unpaid_by_user($user_id, $limit = 10000, $offset = 0) {
+
+        $this->db->select('items.*, categories.name as category, categories.id as category_id');
+        $this->db->from('personal_items');
+        $this->db->join('items', 'items.item_number = personal_items.item_number', 'left');
+        $this->db->join('categories', 'categories.id = items.item_id', 'left');
+        $this->db->where('items.deleted', 0);
+        $this->db->where('personal_items.deleted', 0);
+        $this->db->where('personal_items.created_by_id', $user_id);
+        $this->db->where('items.status', 0);
+        $this->db->where('items.owner_payment_id is null');
+        $this->db->limit($limit);
+        $this->db->offset($offset);
+
+        $result = $this->db->get();
+
+        if (is_object($result)) {
+            return $result->num_rows();
+        } else {
+            return 0;
+        }
+    }
+
+    function is_owner_claiming($user_id, $item_id) {
+
+        $this->db->select('items.*, categories.name as category, categories.id as category_id');
+        $this->db->from('personal_items');
+        $this->db->join('items', 'items.item_number = personal_items.item_number', 'left');
+        $this->db->join('categories', 'categories.id = items.category_id', 'left');
+        $this->db->where('items.deleted', 0);
+        $this->db->where('personal_items.deleted', 0);
+        $this->db->where('personal_items.created_by_id', $user_id);
+        $this->db->where('items.status', 0);
+        $this->db->where('items.item_id', $item_id);
+        $this->db->where('items.owner_payment_id is null');
+        $result = $this->db->get();
+
+        if (is_object($result)) {
+            if ($result->num_rows() > 0) {
+                return true;
+            }else{
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    function get_found_by_user($user_id, $limit = 10000, $offset = 0) {
+
+        $this->db->select('items.*, payments.payment_gatway_code, categories.name as category, categories.id as category_id');
+        $this->db->from('items');
+        $this->db->join('payments', 'payments.item_id = items.item_id', 'left');
+        $this->db->join('categories', 'categories.id = items.category_id', 'left');
+        $this->db->where('items.deleted', 0);
+        $this->db->where('payments.deleted', 0);
+        $this->db->where('payments.item_type', 1); //found item
+        $this->db->where('payments.payed_by_id', $user_id);
+        $this->db->limit($limit);
+        $this->db->offset($offset);
+
+        return $this->db->get();
     }
 
     function count_found_by_user($user_id, $limit = 10000, $offset = 0) {
